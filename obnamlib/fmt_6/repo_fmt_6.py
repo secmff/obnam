@@ -675,7 +675,12 @@ class RepositoryFormat6(obnamlib.RepositoryInterface):
         try:
             self._fs.remove(filename)
         except OSError:
-            pass
+            if self.settings['ignore-missing-chunk']:
+                pass
+            else:
+                raise obnamlib.RepositoryChunkDoesNotExist(
+                    chunk_id=str(chunk_id),
+                    filename=filename)
 
     def get_chunk_ids(self):
         # Note: This does not cover for in-tree chunk data. We cannot

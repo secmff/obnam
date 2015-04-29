@@ -83,6 +83,10 @@ class App(cliapp.Application):
             metavar='TIMEOUT',
             default=60)
 
+        self.settings.boolean(
+            ['ignore-missing-chunk'],
+            'Continue when trying to remove a non existing chunk')
+
         # Repository format selection.
 
         self.settings.choice(
